@@ -10,35 +10,35 @@ int main( int argc, char *argv[] )
 	
 	int turn_counter = 0;    					//only for player 1!
 	int player = 2;
-	int winner;
-	int column;
+	int winner = 0;
+	int column = 0;
 	int row; 	
 	do
 	{
 		switch(player)
 		{
-			case 1: player++; break; 
-			case 2: player--; break; 
+			case 1: player++; break;
+			case 2: player--; turn_counter++; break; //player-- so player is now 1, turn_counter++ cuz player 1 takes a turn
 		}
-		display_game_area(0); 
-		column = select_column(); 
-		row = add_coin( player, column ); 
-		display_game_area(column);
-		if(turn_counter >= 4)
+		display_game_area(column); 
+		column = select_column(column); 
+		row = add_coin( player, column );
+		if( turn_counter >= 4 )
 		{
-			winner  = win(column, row);
+			winner = win(column, row);
 		}
+		display_game_area(column);
 	}
-	while( getch()!= 'q' || winner != 0 );
+	while( winner == 0 );
 
 	printf("The winner is player %d!\n", winner); 
 
 	return EXIT_SUCCESS;
 }
 
-int select_column(void)
+int select_column(int startcolumn)
 {
-	int column = 0;
+	int column = startcolumn;
 	char selection;
 	while( (selection=getch()) != '\n' )
 	{
@@ -96,8 +96,9 @@ int add_coin( int player, int column )
 	{
 		i++;
 	}
-	game_area[column][i-1] = coin;
-	return i-1;				//the row in which the coin ends up
+	int row = i-1;	//HEIGHT would be out of bounds (OOB), and a field with a coin would be too low too
+	game_area[column][row] = coin;
+	return row;				//the row in which the coin ends up
 }
 
 int win( int column, int row )
@@ -105,22 +106,24 @@ int win( int column, int row )
 	int winner;
 	int counter[4] = {1, 1, 1, 1};		       			//4 directions
 	int coin = game_area[column][row];
-	int i=1;
-	
+
+	int i=1;	//KJELL: das muss vor jeder while passieren (habe ich hinzugefügt), sonst ist i irgendwann so um die 30	
 	//up
 	while(game_area[column][row-i] == coin)
 	{				 	
 		i++; 
-		counter[0]++; 
+		counter[0]++;
 	}
 
+	i=1;		//guggst du
 	//down	
 	while(game_area[column][row+i] == coin)
 	{				 	
 		i++; 
-		counter[0]++; 
+		counter[0]++;
 	}
 
+	i=1;		//guggst du
 	//right
 	while(game_area[column+i][row] == coin)
 	{				 	
@@ -128,6 +131,7 @@ int win( int column, int row )
 		counter[1]++; 
 	}
 	
+	i=1;		//guggst du
 	//left
 		while(game_area[column-i][row] == coin)
 	{				 	
@@ -135,20 +139,23 @@ int win( int column, int row )
 		counter[1]++; 
 	}
 
+	i=1;		//guggst du
 	//down right
 	while(game_area[column+i][row+i] == coin)
 	{				 	
 		i++; 
 		counter[2]++; 
 	}	
-	
+
+	i=1;		//guggst du	
 	//up left
 	while(game_area[column-i][row-i] == coin)
 	{				 	
 		i++; 
 		counter[2]++; 
 	}
-	
+
+	i=1;		//guggst du	
 	//up right
 	while(game_area[column+i][row-i] == coin)
 	{				 	
@@ -156,6 +163,7 @@ int win( int column, int row )
 		counter[3]++; 
 	}
 
+	i=1;		//guggst du
 	//down left
 	while(game_area[column-i][row-+i] == coin)
 	{				 	
@@ -172,14 +180,15 @@ int win( int column, int row )
 	
 	for(i=0; i<4; i++)
 	{
-		if(counter[i]<4)
+		if(counter[i] < 4)
 		{
 			winner = 0; 
 		}
 		
-		if(counter[i]>=4) 
+		if(counter[i] >= 4) 
 		{
-			winner = player; 
+			winner = player;
+			break;		//IMPORTANT! otherwise next counter[i] could be 0, and the loop will only quit when i has reached 3
 		}
 	}
 

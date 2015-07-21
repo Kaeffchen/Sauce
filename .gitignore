@@ -1,3 +1,9 @@
 #Hidden backup files (with and without extension) created by gedit
 *.*~
 *~
+
+#Object files
+*.o
+
+#Final executable
+fiar

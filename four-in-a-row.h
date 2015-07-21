@@ -7,7 +7,7 @@
 
 char game_area[WIDTH][HEIGHT];
 
-int select_column(void); 
+int select_column(int startcolumn); 
 
 int add_coin( int player, int column );
 
