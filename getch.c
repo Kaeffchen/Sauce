@@ -76,4 +76,6 @@ int select_column(void)
 			}
 		}
 	}
+
+	return column;
 }
