@@ -10,5 +10,5 @@
 #define GREEN "\e[0;32m"		//player 2
 #define BLACK "\e[0;30m"
 
-int clear_game_area(void);
-int display_game_area(void);
+void clear_game_area(void);
+void display_game_area(int column_selected);

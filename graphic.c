@@ -1,51 +1,53 @@
 /*graphic.c*/
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "four-in-a-row.h"
 #include "graphic.h"
 
-int display_game_area( int column_selected )
+void display_game_area(int column_selected)
 {
 	system("clear");
-	puts("\n\n");
+	printf("\n\n");
 
 	//put the column selector into the right position
-	for( int i = 0; i < column_selected-1; i++ )
+	putchar('\t');
+	for( int i = 0; i < column_selected; i++ )
 	{
-		putchar(' ');
+		printf("  ");
 	}
-	putchar('v');
-	for( int i = 0; i < WIDTH-column_selected; i++ )
-	{
-		putchar(' ');
-	}
-	putchar('\n');
+	printf("v");
+	printf("\n");
 
-	for( int x = 0; x < WIDTH; x++ )
+	for( int y = 0; y < HEIGHT; y++ )
 	{
 		putchar('\t');
-		for( int y = 0; y < HEIGHT; y++ )
+		/*only NO_COIN will be printed, but in different colors to show which player it is*/
+		for( int x = 0; x < WIDTH; x++ )
 		{
 			if( game_area[x][y] == COIN_ONE )
 			{
 				printf(RED);
-				printf( "%c ", game_area[x][y] );
+				printf( "%c ", NO_COIN );
 			}
 			else if( game_area[x][y] == COIN_TWO )
 			{
 				printf(GREEN);
-				printf( "%c ", game_area[x][y] );
+				printf( "%c ", NO_COIN );
 			}
 			else
 			{
 				printf(BLACK);
-				printf( "%c ", game_area[x][y] );
+				printf( "%c ", NO_COIN );
 			}
 		}
-		printf( "%s\n", BLACK );
+		printf(BLACK);
+		printf("\n");
 	}
 }
 
-int clear_game_area(void)
+void clear_game_area(void)
 {
     for( int x = 0; x < WIDTH; x++ )
     {

@@ -1,7 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "getch.h"
-#include "graphic.h"
 #include "four-in-a-row.h"
 
 int main( int argc, char *argv[] )
@@ -15,7 +15,6 @@ int main( int argc, char *argv[] )
 	int row; 	
 	do
 	{
-		
 		switch(player)
 		{
 			case 1: player++; break; 
@@ -24,56 +23,17 @@ int main( int argc, char *argv[] )
 		display_game_area(0); 
 		column = select_column(); 
 		row = add_coin( player, column ); 
+		display_game_area(column);
 		if(turn_counter >= 4)
 		{
 			winner  = win(column, row);
 		}
-		
 	}
 	while( getch()!= 'q' || winner != 0 );
 
 	printf("The winner is player %d!\n", winner); 
 
 	return EXIT_SUCCESS;
-}
-
-int select_column()
-{
-	int column; 
-	return column; 
-}
-
-int add_coin( int player, int column )
-{	
-	char coin; 	
-
-	if(player == 1)
-	{
-		coin = COIN_ONE; 
-	}
-	
-	else
-	{
-		coin = COIN_TWO; 
-	}
-
-	int y = 0; 							//Top row
-	if(game_area[column][y] != NO_COIN)
-	{
-		printf("Impossible\n"); 
-	}
-	int i; 
-	
-	for (i=0; i<HEIGHT; i++) 
-	{
-		if(game_area[column][i]==NO_COIN)
-		{
-			break; 
-		}  
-		game_area[column][i-1] = coin; 
-		int row = i; 
-	}
-	return row; 							
 }
 
 int select_column(void)
@@ -89,14 +49,16 @@ int select_column(void)
 				if( column > 0 )
 				{
 					column--;
+					display_game_area(column);
 				}
 				break;
 			}
 			case ARROW_RIGHT:
 			{
-				if( column < WIDTH )
+				if( column < WIDTH-1 )
 				{
-					column++;
+					column++;		//column will be at most WIDTH-1 (WIDTH would be OOB (out of bounds) )
+					display_game_area(column);
 				}
 				break;
 			}
@@ -108,6 +70,34 @@ int select_column(void)
 	}
 
 	return column;
+}
+
+int add_coin( int player, int column )
+{	
+	char coin; 	
+
+	if(player == 1)
+	{
+		coin = COIN_ONE; 
+	}
+	else
+	{
+		coin = COIN_TWO; 
+	}
+
+	int y = 0; 							//Top row
+	if(game_area[column][y] != NO_COIN)
+	{
+		printf("Impossible\n"); 
+	}
+
+	int i = 0;
+	while( i < HEIGHT && game_area[column][i]==NO_COIN )
+	{
+		i++;
+	}
+	game_area[column][i-1] = coin;
+	return i-1;				//the row in which the coin ends up
 }
 
 int win( int column, int row )

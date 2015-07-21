@@ -1,5 +1,7 @@
 /*four-in-a-row.h*/
 
+#include "graphic.h"
+
 #define ARROW_LEFT 68
 #define ARROW_RIGHT 67
 
