@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "getch.h"
-#include "four-in-a-row.h"
+#include "fiar.h"
 
 int main( int argc, char *argv[] )
 {

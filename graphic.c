@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "four-in-a-row.h"
+#include "fiar.h"
 #include "graphic.h"
 
 void display_game_area(int column_selected)
