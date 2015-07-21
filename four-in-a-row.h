@@ -1,5 +1,9 @@
+
+
+char game_area[WIDTH][HEIGHT];
+
+int select_column(); 
+
 int add_coin( int player, int column );
 
-int clear_game_area();
-
-int win();
+int win(int column, int row);
