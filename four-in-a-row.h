@@ -1,8 +1,11 @@
+/*four-in-a-row.h*/
 
+#define ARROW_LEFT 68
+#define ARROW_RIGHT 67
 
 char game_area[WIDTH][HEIGHT];
 
-int select_column(); 
+int select_column(void); 
 
 int add_coin( int player, int column );
 

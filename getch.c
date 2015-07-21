@@ -45,37 +45,3 @@ int getch(void)
 
 	return c;		//if everything worked, return the character that was typed in
 }
-
-int select_column(void)
-{
-	int column = 0;
-	char selection;
-	while( (selection=getch()) != '\n' )
-	{
-		switch(selection)
-		{
-			case ARROW_LEFT:
-			{
-				if( column > 0 )
-				{
-					column--;
-				}
-				break;
-			}
-			case ARROW_RIGHT:
-			{
-				if( column < WIDTH )
-				{
-					column++;
-				}
-				break;
-			}
-			default:
-			{
-				break;
-			}
-		}
-	}
-
-	return column;
-}

@@ -1,10 +1,8 @@
 #include <stdio.h>
-#include <stdlin.h>
+
+#include "getch.h"
 #include "graphic.h"
 #include "four-in-a-row.h"
-
-#define TRUE 1
-#define FALSE 0
 
 int main( int argc, char *argv[] )
 {
@@ -76,6 +74,40 @@ int add_coin( int player, int column )
 		int row = i; 
 	}
 	return row; 							
+}
+
+int select_column(void)
+{
+	int column = 0;
+	char selection;
+	while( (selection=getch()) != '\n' )
+	{
+		switch(selection)
+		{
+			case ARROW_LEFT:
+			{
+				if( column > 0 )
+				{
+					column--;
+				}
+				break;
+			}
+			case ARROW_RIGHT:
+			{
+				if( column < WIDTH )
+				{
+					column++;
+				}
+				break;
+			}
+			default:
+			{
+				break;
+			}
+		}
+	}
+
+	return column;
 }
 
 int win( int column, int row )

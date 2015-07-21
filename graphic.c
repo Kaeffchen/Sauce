@@ -1,5 +1,6 @@
 /*graphic.c*/
 
+#include "four-in-a-row.h"
 #include "graphic.h"
 
 int display_game_area( int column_selected )
@@ -21,11 +22,26 @@ int display_game_area( int column_selected )
 
 	for( int x = 0; x < WIDTH; x++ )
 	{
+		putchar('\t');
 		for( int y = 0; y < HEIGHT; y++ )
 		{
-			printf( "%c", game_area[x][y] );
+			if( game_area[x][y] == COIN_ONE )
+			{
+				printf(RED);
+				printf( "%c ", game_area[x][y] );
+			}
+			else if( game_area[x][y] == COIN_TWO )
+			{
+				printf(GREEN);
+				printf( "%c ", game_area[x][y] );
+			}
+			else
+			{
+				printf(BLACK);
+				printf( "%c ", game_area[x][y] );
+			}
 		}
-		putchar('\n');
+		printf( "%s\n", BLACK );
 	}
 }
 
