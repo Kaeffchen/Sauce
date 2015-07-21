@@ -6,5 +6,5 @@
 #define COIN_ONE '|'
 #define COIN_TWO '-'
 
-int clear_game_area( int area[WIDTH][HEIGHT] );
-display_game_area( int area[WIDTH][HEIGHT] );
+int clear_game_area(void);
+int display_game_area(void);
