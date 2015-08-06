@@ -6,8 +6,8 @@
 #define COIN_ONE '|'
 #define COIN_TWO '-'
 
-#define RED "\e[0;31m"			//player 1
-#define GREEN "\e[0;32m"		//player 2
+#define RED "\e[1;31m"			//player 1
+#define GREEN "\e[1;32m"		//player 2
 #define BLACK "\e[0;30m"
 
 void clear_game_area(void);
