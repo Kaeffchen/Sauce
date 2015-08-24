@@ -170,7 +170,7 @@ int win( int column, int row )
 
 	i=1;		//guggst du
 	//down left
-	while(game_area[column-i][row-+i] == coin)
+	while(game_area[column-i][row+i] == coin)
 	{				 	
 		i++;  
 		counter[3]++; 
