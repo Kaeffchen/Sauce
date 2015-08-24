@@ -6,12 +6,30 @@
 #include "fiar.h"
 #include "graphic.h"
 
-void display_game_area(int column_selected)
+void display_game_area(int column_selected, int player)
 {
 	system("clear");
 	printf("\n\n");
 
 	//put the column selector into the right position
+	if( player == 1 )
+	{
+		printf(RED);
+	}
+	else if( player == 2 )
+	{
+		printf(GREEN);
+	}
+	if( player != -1 )
+	{
+		printf("Player %d's turn\n\n", player);
+	}
+	else
+	{
+		printf("\n\n");
+	}
+	printf(BLACK);
+
 	putchar('\t');
 	for( int i = 0; i < column_selected; i++ )
 	{

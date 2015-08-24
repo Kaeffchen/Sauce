@@ -20,7 +20,7 @@ int main( int argc, char *argv[] )
 			case 1: player++; break;
 			case 2: player--; turn_counter++; break; //player-- so player is now 1, turn_counter++ cuz player 1 takes a turn
 		}
-		display_game_area(column); 
+		display_game_area(column, player); 
 		row = -1;
 		while( row == -1 )
 		{
@@ -31,7 +31,7 @@ int main( int argc, char *argv[] )
 		{
 			winner = win(column, row);
 		}
-		display_game_area(column);
+		display_game_area(column, player);
 	}
 	while( winner == 0 );
 
@@ -53,7 +53,7 @@ int select_column(int startcolumn)
 				if( column > 0 )
 				{
 					column--;
-					display_game_area(column);
+					display_game_area(column, -1);
 				}
 				break;
 			}
@@ -62,7 +62,7 @@ int select_column(int startcolumn)
 				if( column < WIDTH-1 )
 				{
 					column++;		//column will be at most WIDTH-1 (WIDTH would be OOB (out of bounds) )
-					display_game_area(column);
+					display_game_area(column, -1);
 				}
 				break;
 			}

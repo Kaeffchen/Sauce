@@ -11,4 +11,4 @@
 #define BLACK "\e[0;30m"
 
 void clear_game_area(void);
-void display_game_area(int column_selected);
+void display_game_area(int column_selected, int player );
