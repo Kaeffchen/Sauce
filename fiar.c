@@ -21,8 +21,12 @@ int main( int argc, char *argv[] )
 			case 2: player--; turn_counter++; break; //player-- so player is now 1, turn_counter++ cuz player 1 takes a turn
 		}
 		display_game_area(column); 
-		column = select_column(column); 
-		row = add_coin( player, column );
+		row = -1;
+		while( row == -1 )
+		{
+			column = select_column(column);
+			row = add_coin( player, column );	//try to add coin until a not-full column is hit
+		}
 		if( turn_counter >= 4 )
 		{
 			winner = win(column, row);
@@ -88,7 +92,8 @@ int add_coin( int player, int column )
 	int y = 0; 							//Top row
 	if(game_area[column][y] != NO_COIN)
 	{
-		printf("Impossible\n"); 
+		printf("Impossible\n");
+		return -1;
 	}
 
 	int i = 0;
@@ -96,7 +101,7 @@ int add_coin( int player, int column )
 	{
 		i++;
 	}
-	int row = i-1;	//HEIGHT would be out of bounds (OOB), and a field with a coin would be too low too
+	int row = i-1;
 	game_area[column][row] = coin;
 	return row;				//the row in which the coin ends up
 }
